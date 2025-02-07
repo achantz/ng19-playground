@@ -1,0 +1,84 @@
+<form [formGroup]="formGroup">
+  <div class="grid grid-cols-3 gap-4">
+    <label class="form-control w-full">
+      <div class="label">
+        <span class="label-text"> Month </span>
+      </div>
+      <select
+        name="month"
+        class="select select-primary w-full"
+        [class.select-error]="
+          formGroup.controls.month.invalid &&
+          !formGroup.controls.month.untouched
+        "
+        aria-label="Select a month..."
+        [formControlName]="'month'"
+        [value]="formGroup.controls.month.value"
+      >
+        <option selected disabled value="">Choose a month...</option>
+        @for (month of months; track month; let i = $index) {
+          <option [value]="i + 1">{{ month }}</option>
+        }
+      </select>
+      @if (
+        formGroup.controls.month.invalid && !formGroup.controls.month.untouched
+      ) {
+        <div class="label">
+          <span class="label-text-alt text-error">Invalid month</span>
+        </div>
+      }
+    </label>
+    <label class="form-control w-full">
+      <div class="label">
+        <span class="label-text"> Day </span>
+      </div>
+      <input
+        name="day"
+        class="input input-bordered w-full input-primary"
+        [class.input-error]="
+          formGroup.controls.day.invalid && !formGroup.controls.day.untouched
+        "
+        type="text"
+        placeholder="Day"
+        formControlName="day"
+        max="31"
+        maxlength="2"
+        [value]="formGroup.controls.day.value"
+      />
+      @if (
+        formGroup.controls.day.invalid && !formGroup.controls.day.untouched
+      ) {
+        <div class="label">
+          <span class="label-text-alt text-error">Invalid day</span>
+        </div>
+      }
+    </label>
+    <label class="form-control w-full">
+      <div class="label">
+        <span class="label-text"> Year </span>
+      </div>
+      <input
+        name="year"
+        class="input input-bordered input-primary w-full"
+        [class.input-error]="
+          formGroup.controls.year.invalid && !formGroup.controls.year.untouched
+        "
+        type="text"
+        placeholder="Year"
+        formControlName="year"
+        [max]="currentYear"
+        [maxlength]="4"
+        min="1900"
+        [minlength]="4"
+        [value]="formGroup.controls.year.value"
+      />
+      @if (
+        formGroup.controls.year.invalid && !formGroup.controls.year.untouched
+      ) {
+        <div class="label">
+          <span class="label-text-alt text-error">Invalid year</span>
+        </div>
+      }
+    </label>
+  </div>
+</form>
